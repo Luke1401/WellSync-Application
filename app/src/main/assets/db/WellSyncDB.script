@@ -1,0 +1,176 @@
+CREATE SCHEMA PUBLIC AUTHORIZATION DBA
+CREATE MEMORY TABLE PUBLIC.USER_CREDENTIALS ( email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, role VARCHAR(16) NOT NULL, PRIMARY KEY (email) )
+CREATE MEMORY TABLE PUBLIC.PATIENTS ( email VARCHAR(255) NOT NULL, firstName VARCHAR(255), lastName VARCHAR(255), bloodType VARCHAR(20), sex VARCHAR(20), age INTEGER , doctorNotes VARCHAR(7999), PRIMARY KEY (email) )
+CREATE MEMORY TABLE PUBLIC.DOCTORS ( email VARCHAR(255) NOT NULL, firstName VARCHAR(255), lastName VARCHAR(255), PRIMARY KEY (email) )
+CREATE MEMORY TABLE PUBLIC.ASSIGNED_PATIENTS ( doctor_email VARCHAR(255) NOT NULL, patient_email VARCHAR(255) NOT NULL, FOREIGN KEY (doctor_email) REFERENCES DOCTORS(email), FOREIGN KEY (patient_email) REFERENCES PATIENTS(email), PRIMARY KEY (doctor_email, patient_email) )
+CREATE MEMORY TABLE PUBLIC.DAILY_LOG ( patient_email VARCHAR(255) NOT NULL, log_date DATE NOT NULL, mood_score INTEGER, sleep_hours INTEGER, notes VARCHAR(7999), PRIMARY KEY (patient_email, log_date), FOREIGN KEY (patient_email) REFERENCES PATIENTS(email) )
+CREATE MEMORY TABLE PUBLIC.SYMPTOMS ( patient_email VARCHAR(255) NOT NULL, log_date DATE NOT NULL, symptom VARCHAR(255), intensity INTEGER, FOREIGN KEY (patient_email, log_date) REFERENCES DAILY_LOG(patient_email, log_date) )
+CREATE MEMORY TABLE PUBLIC.MEDICATIONS ( patient_email VARCHAR(255) NOT NULL, log_date DATE NOT NULL, medication VARCHAR(255), quantity INTEGER, dosage INTEGER, FOREIGN KEY (patient_email, log_date) REFERENCES DAILY_LOG(patient_email, log_date) )
+CREATE MEMORY TABLE PUBLIC.SUBSTANCES ( patient_email VARCHAR(255) NOT NULL, log_date DATE NOT NULL, substance VARCHAR(255), quantity INTEGER, FOREIGN KEY (patient_email, log_date) REFERENCES DAILY_LOG(patient_email, log_date) )
+CREATE USER MD PASSWORD DIGEST 'd41d8cd98f00b204e9800998ecf8427e'
+ALTER USER MD SET LOCAL TRUE
+CREATE SCHEMA PUBLIC AUTHORIZATION DBA
+SET DATABASE DEFAULT INITIAL SCHEMA PUBLIC
+GRANT DBA TO MD
+SET WRITE_DELAY 20
+SET FILES SCALE 32
+SET SCHEMA public
+INSERT INTO USER_CREDENTIALS VALUES ('patient1@example.com', 'password1', 'PATIENT')
+INSERT INTO USER_CREDENTIALS VALUES ('patient2@example.com', 'password2', 'PATIENT')
+INSERT INTO USER_CREDENTIALS VALUES ('doctor1@example.com', 'password1', 'DOCTOR')
+INSERT INTO USER_CREDENTIALS VALUES ('doctor2@example.com', 'password2', 'DOCTOR')
+INSERT INTO PATIENTS VALUES ('patient1@example.com', 'John', 'Doe', 'TYPE_A', 'MALE', 30, 'Sleep more')
+INSERT INTO PATIENTS VALUES ('patient2@example.com', 'Jane', 'Smith', 'TYPE_O', 'FEMALE', 25, 'Stop Studying')
+INSERT INTO DOCTORS VALUES ('doctor1@example.com', 'Gabriel', 'Young')
+INSERT INTO DOCTORS VALUES ('doctor2@example.com', 'Alvee', 'Jawad')
+INSERT INTO ASSIGNED_PATIENTS VALUES ('doctor1@example.com', 'patient1@example.com')
+INSERT INTO ASSIGNED_PATIENTS VALUES ('doctor2@example.com', 'patient2@example.com')
+INSERT INTO DAILY_LOG VALUES ('patient1@example.com', '2023-01-01', 0, 8, 'Feeling good today')
+INSERT INTO DAILY_LOG VALUES ('patient1@example.com', '2023-01-02', 3, 7, 'Had trouble sleeping')
+INSERT INTO DAILY_LOG VALUES ('patient1@example.com', '2023-01-03', 2, 6, 'Feeling a bit down today');
+INSERT INTO DAILY_LOG VALUES ('patient1@example.com', '2023-01-04', 1, 7, 'Sleep was better, but mood still low');
+INSERT INTO DAILY_LOG VALUES ('patient1@example.com', '2023-01-05', 2, 8, 'Feeling much better today');
+INSERT INTO DAILY_LOG VALUES ('patient1@example.com', '2023-01-06', 3, 6, 'Stressful day, mood affected');
+INSERT INTO DAILY_LOG VALUES ('patient1@example.com', '2023-01-07', 0, 9, 'Great day, very positive');
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-01', 'Headache', 3)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-01', 'Sadness/Despair', 2)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-01', 'Helplessness/Hopelessness', 2)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-01', 'Low Self-Esteem', 4)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-01', 'Feeling isolated', 1)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-01', 'Low Motivation/ Loss of Interest', 0)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-01', 'Impulsivity', 0)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-01', 'Inability to Concentrate', 1)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-01', 'Aggressive Behavior', 3)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-01', 'Feeling like you can do anything', 3)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-01', 'Racing Thoughts', 2)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-01', 'High Anxiety/Excessive Worry', 2)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-01', 'Sleep Problems', 2)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-01', 'Body Ache/Pain', 3)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-01', 'Decreased or Increased Appetit', 1)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-01', 'Feelings of Guilt or Self-Blame', 2)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-01', 'Thoughts of Death or Suicide', 1)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-02', 'Headache', 3)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-02', 'Sadness/Despair', 2)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-02', 'Helplessness/Hopelessness', 2)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-02', 'Low Self-Esteem', 4)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-02', 'Feeling isolated', 1)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-02', 'Low Motivation/ Loss of Interest', 0)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-02', 'Impulsivity', 0)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-02', 'Inability to Concentrate', 1)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-02', 'Aggressive Behavior', 3)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-02', 'Feeling like you can do anything', 3)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-02', 'Racing Thoughts', 2)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-02', 'High Anxiety/Excessive Worry', 2)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-02', 'Sleep Problems', 2)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-02', 'Body Ache/Pain', 3)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-02', 'Decreased or Increased Appetit', 1)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-02', 'Feelings of Guilt or Self-Blame', 2)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-02', 'Thoughts of Death or Suicide', 1)
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-03', 'Headache', 2);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-03', 'Sadness/Despair', 3);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-03', 'Helplessness/Hopelessness', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-03', 'Low Self-Esteem', 3);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-03', 'Feeling isolated', 2);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-03', 'Low Motivation/ Loss of Interest', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-03', 'Impulsivity', 0);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-03', 'Inability to Concentrate', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-03', 'Aggressive Behavior', 2);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-03', 'Feeling like you can do anything', 3);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-03', 'Racing Thoughts', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-03', 'High Anxiety/Excessive Worry', 2);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-03', 'Sleep Problems', 2);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-03', 'Body Ache/Pain', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-03', 'Decreased or Increased Appetit', 2);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-03', 'Feelings of Guilt or Self-Blame', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-03', 'Thoughts of Death or Suicide', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-04', 'Headache', 2);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-04', 'Sadness/Despair', 3);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-04', 'Helplessness/Hopelessness', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-04', 'Low Self-Esteem', 3);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-04', 'Feeling isolated', 2);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-04', 'Low Motivation/ Loss of Interest', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-04', 'Impulsivity', 0);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-04', 'Inability to Concentrate', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-04', 'Aggressive Behavior', 2);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-04', 'Feeling like you can do anything', 3);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-04', 'Racing Thoughts', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-04', 'High Anxiety/Excessive Worry', 2);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-04', 'Sleep Problems', 2);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-04', 'Body Ache/Pain', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-04', 'Decreased or Increased Appetit', 2);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-04', 'Feelings of Guilt or Self-Blame', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-04', 'Thoughts of Death or Suicide', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-05', 'Headache', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-05', 'Sadness/Despair', 2);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-05', 'Helplessness/Hopelessness', 0);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-05', 'Low Self-Esteem', 2);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-05', 'Feeling isolated', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-05', 'Low Motivation/ Loss of Interest', 0);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-05', 'Impulsivity', 0);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-05', 'Inability to Concentrate', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-05', 'Aggressive Behavior', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-05', 'Feeling like you can do anything', 2);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-05', 'Racing Thoughts', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-05', 'High Anxiety/Excessive Worry', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-05', 'Sleep Problems', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-05', 'Body Ache/Pain', 2);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-05', 'Decreased or Increased Appetit', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-05', 'Feelings of Guilt or Self-Blame', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-05', 'Thoughts of Death or Suicide', 0);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-06', 'Headache', 2);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-06', 'Sadness/Despair', 3);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-06', 'Helplessness/Hopelessness', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-06', 'Low Self-Esteem', 3);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-06', 'Feeling isolated', 2);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-06', 'Low Motivation/ Loss of Interest', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-06', 'Impulsivity', 0);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-06', 'Inability to Concentrate', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-06', 'Aggressive Behavior', 2);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-06', 'Feeling like you can do anything', 3);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-06', 'Racing Thoughts', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-06', 'High Anxiety/Excessive Worry', 2);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-06', 'Sleep Problems', 2);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-06', 'Body Ache/Pain', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-06', 'Decreased or Increased Appetit', 2);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-06', 'Feelings of Guilt or Self-Blame', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-06', 'Thoughts of Death or Suicide', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-07', 'Headache', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-07', 'Sadness/Despair', 2);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-07', 'Helplessness/Hopelessness', 0);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-07', 'Low Self-Esteem', 2);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-07', 'Feeling isolated', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-07', 'Low Motivation/ Loss of Interest', 0);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-07', 'Impulsivity', 0);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-07', 'Inability to Concentrate', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-07', 'Aggressive Behavior', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-07', 'Feeling like you can do anything', 2);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-07', 'Racing Thoughts', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-07', 'High Anxiety/Excessive Worry', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-07', 'Sleep Problems', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-07', 'Body Ache/Pain', 2);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-07', 'Decreased or Increased Appetit', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-07', 'Feelings of Guilt or Self-Blame', 1);
+INSERT INTO SYMPTOMS VALUES ('patient1@example.com', '2023-01-07', 'Thoughts of Death or Suicide', 0);
+INSERT INTO SYMPTOMS VALUES ('patient2@example.com', '2023-01-01', 'Headache', 3)
+INSERT INTO SYMPTOMS VALUES ('patient2@example.com', '2023-01-01', 'Sadness/Despair', 2)
+INSERT INTO SYMPTOMS VALUES ('patient2@example.com', '2023-01-01', 'Helplessness/Hopelessness', 2)
+INSERT INTO SYMPTOMS VALUES ('patient2@example.com', '2023-01-01', 'Low Self-Esteem', 4)
+INSERT INTO SYMPTOMS VALUES ('patient2@example.com', '2023-01-01', 'Feeling isolated', 1)
+INSERT INTO SYMPTOMS VALUES ('patient2@example.com', '2023-01-01', 'Low Motivation/ Loss of Interest', 0)
+INSERT INTO SYMPTOMS VALUES ('patient2@example.com', '2023-01-01', 'Impulsivity', 0)
+INSERT INTO SYMPTOMS VALUES ('patient2@example.com', '2023-01-01', 'Inability to Concentrate', 1)
+INSERT INTO SYMPTOMS VALUES ('patient2@example.com', '2023-01-01', 'Aggressive Behavior', 3)
+INSERT INTO SYMPTOMS VALUES ('patient2@example.com', '2023-01-01', 'Feeling like you can do anything', 3)
+INSERT INTO SYMPTOMS VALUES ('patient2@example.com', '2023-01-01', 'Racing Thoughts', 2)
+INSERT INTO SYMPTOMS VALUES ('patient2@example.com', '2023-01-01', 'High Anxiety/Excessive Worry', 2)
+INSERT INTO SYMPTOMS VALUES ('patient2@example.com', '2023-01-01', 'Sleep Problems', 2)
+INSERT INTO SYMPTOMS VALUES ('patient2@example.com', '2023-01-01', 'Body Ache/Pain', 3)
+INSERT INTO SYMPTOMS VALUES ('patient2@example.com', '2023-01-01', 'Decreased or Increased Appetit', 1)
+INSERT INTO SYMPTOMS VALUES ('patient2@example.com', '2023-01-01', 'Feelings of Guilt or Self-Blame', 2)
+INSERT INTO SYMPTOMS VALUES ('patient2@example.com', '2023-01-01', 'Thoughts of Death or Suicide', 1)
+INSERT INTO MEDICATIONS VALUES ('patient1@example.com', '2023-01-01', 'Tylenol', 2, 3)
+INSERT INTO MEDICATIONS VALUES ('patient1@example.com', '2023-01-02', 'Melatonin', 1, 1)
+INSERT INTO MEDICATIONS VALUES ('patient2@example.com', '2023-01-01', 'Cough syrup', 3, 5)
+INSERT INTO SUBSTANCES VALUES ('patient1@example.com', '2023-01-01', 'Alcohol', 2)
+INSERT INTO SUBSTANCES VALUES ('patient1@example.com', '2023-01-02', 'Caffeine', 3)
+INSERT INTO SUBSTANCES VALUES ('patient2@example.com', '2023-01-01', 'Coke', 100)

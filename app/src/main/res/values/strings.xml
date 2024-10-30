@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">WELL SYNC</string>
+    <string name="add_a_description">Add a Description</string>
+    <string name="select_role">Select Role</string>
+    <string name="Date">Date: </string>
+
+    <string name="symptoms">Symptoms</string>
+    <string name="Sadness">Sadness/Despair: </string>
+    <string name="Helplessness">Helplessness/Hopelessness: </string>
+    <string name="LowSelfEsteem">Low Self-Esteem: </string>
+    <string name="isolated">Feeling isolated: </string>
+    <string name="motivation">Low Motivation/ Loss of Interest:</string>
+    <string name="impulsivity">Impulsivity: </string>
+    <string name="focus">Inability to Concentrate: </string>
+    <string name="aggresivity">Aggressive Behavior: </string>
+    <string name="inability">Feeling like you can do anything: </string>
+    <string name="racing">Racing Thoughts: </string>
+    <string name="anxiety">High Anxiety/Excessive Worry:</string>
+    <string name="sleep">Sleep Problems: </string>
+    <string name="headache">Headache: </string>
+    <string name="body_ache">Body Ache/Pain: </string>
+    <string name="appetite">Decreased or Increased Appetite: </string>
+    <string name="guilt">Feelings of Guilt or Self-Blame: </string>
+    <string name="suicide">Thoughts of Death or Suicide: </string>
+
+    <string name="sleep_hours">Sleep Hours</string>
+    <string name="medication">Medication </string>
+    <string name="pills_name">Medication Name: </string>
+    <string name="pills_amount">Amount: </string>
+    <string name="pills_dosage">Dosage: </string>
+
+    <string name="sub_details">Your substance use details are: </string>
+    <string name="substance_use">Substance Use</string>
+    <string name="subs_name">Substance Name: </string>
+    <string name="amount">Amount: </string>
+
+    <string name="symptoms_instructions">Track the intensity of any symptoms you experienced from mildly experiencing
+        this symptom to extremely impaired by this symptom.\n If you did not experience a symptom, leave it blank.</string>
+
+    <string name="med_details">Your medication details are: </string>
+    <string name="continue_button">continue </string>
+
+    <string name="mood">Mood</string>
+    <string name="mood_sc">Mood Score:</string>
+    <string name="notes">Notes:</string>
+    <string name="mood_details">Your mood details are: </string>
+    <string name="emotion">Emotion:</string>
+    <string name="loading">0</string>
+
+    <string name="patient_log">Patient Log </string>
+    <string name="hours_sleep">Hours of sleep:</string>
+
+    <string name="back_button">BACK</string>
+    <string name="log_saved">Log saved</string>
+
+
+</resources>

@@ -1,0 +1,13 @@
+[book]
+authors = [
+	"Hung Lu Dao",
+	"Alvee Jawad",
+	"Camila Martinez Ovando",
+	"Muhammad Dawood Safdar",
+	"Ryan Austria Velicaria",
+	"Gabriel Young",
+]
+language = "en"
+multilingual = false
+src = "src"
+title = "WellSync"

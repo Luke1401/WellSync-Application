@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.well_sync">
+
+    <application
+        android:allowBackup="true"
+        android:label="WELLSYNC"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:replace="android:label">
+        <activity
+            android:name=".presentation.DoctorSignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.UserProgressActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.DisplaySubstanceUseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.DisplayMedicationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.DisplayDataActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.UserDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.MoodTrackerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.HomePageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.SymptomsTrackerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.MedicationTrackerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.SubstanceUseTrackerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.UserSettingsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.DoctorPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.PatientInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.DailyLogPatientActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.DateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.LoginActivity"
+            android:exported="true"
+            android:label="WELLSYNC">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

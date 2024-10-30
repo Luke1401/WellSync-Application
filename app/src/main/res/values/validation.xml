@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="max_age">122</integer>
+    <integer name="max_mood_score">3</integer>
+    <integer name="max_sleep_hours">16</integer>
+    <integer name="max_symptom_intensity">10</integer>
+    <integer name="max_med_quantity">5</integer>
+    <integer name="max_med_dosage">500</integer>
+    <integer name="max_substance_quantity">500</integer>
+    <integer name="max_notes_length">1000</integer>
+
+    <string-array name="blood_types">
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>O+</item>
+        <item>O-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+        <item>Unknown</item>
+    </string-array>
+
+    <string-array name="symptoms">
+        <item>Sadness/Despair"</item>
+        <item>Helplessness/Hopelessness"</item>
+        <item>Low Self-Esteem</item>
+        <item>Feeling isolated</item>
+        <item>Low Motivation/ Loss of Interest</item>
+        <item>Impulsivity</item>
+        <item>Inability to Concentrate</item>
+        <item>Aggressive Behavior</item>
+        <item>Feeling like you can do anything</item>
+        <item>Racing Thoughts</item>
+        <item>High Anxiety/Excessive Worry</item>
+        <item>Sleep Problems</item>
+        <item>Headache</item>
+        <item>Body Ache/Pain</item>
+        <item>Decreased or Increased Appetite</item>
+        <item>Feelings of Guilt or Self-Blame</item>
+        <item>Thoughts of Death or Suicide</item>
+    </string-array>
+    <string-array name="moods">
+        <item>Happy Mood</item>
+        <item>Neutral Mood</item>
+        <item>Sad Mood</item>
+        <item>Anxious Mood</item>
+    </string-array>
+</resources>

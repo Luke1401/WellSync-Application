@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="#F56BD2">
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="323dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="28dp"
+        android:gravity="center"
+        android:text="Mood Tracker"
+        android:textColor="@color/black"
+        android:textSize="40dp"
+        android:textStyle="bold"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/close" />
+
+
+    <TextView
+        android:id="@+id/current_mood"
+        android:layout_width="261dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="136dp"
+        android:gravity="center"
+        android:text="How are you feeling today?"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.114"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="308dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:text="How many hours did you sleep?"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/sleep_hours"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.781"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <EditText
+        android:id="@+id/sleep_hours"
+        android:layout_width="310dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="135dp"
+        android:autofillHints="8 hours"
+        android:background="@drawable/edittext_bg"
+        android:ems="10"
+        android:hint="Enter your sleep hours"
+        android:inputType="number"
+        android:padding="10dp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/user_notes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.782"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="209dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="44dp"
+        android:gravity="center"
+        android:text="Add your notes"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sleep_hours" />
+
+    <EditText
+        android:id="@+id/user_notes"
+        android:layout_width="658dp"
+        android:layout_height="196dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/edittext_bg"
+        android:ems="10"
+        android:gravity="top"
+        android:hint=" Leave a note for your doctor..."
+        android:inputType="textMultiLine"
+        android:padding="15dp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="114dp"
+        android:layout_height="57dp"
+        android:background="@drawable/edittext_bg"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_notes"
+        app:layout_constraintVertical_bias="0.534" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="393dp"
+        android:layout_height="93dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.056"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/current_mood"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageView
+            android:id="@+id/smile"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/smile"
+            tools:layout_editor_absoluteY="133dp"></ImageView>
+
+        <ImageView
+            android:id="@+id/neutral"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="12dp"
+            app:layout_constraintStart_toEndOf="@+id/smile"
+            app:srcCompat="@drawable/neutral"
+            tools:layout_editor_absoluteY="133dp" />
+
+        <ImageView
+            android:id="@+id/angry"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="12dp"
+            app:layout_constraintStart_toEndOf="@+id/neutral"
+            app:srcCompat="@drawable/sad"
+            tools:layout_editor_absoluteY="133dp" />
+
+        <ImageView
+            android:id="@+id/sick"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toEndOf="@+id/angry"
+            app:srcCompat="@drawable/anxious"
+            tools:layout_editor_absoluteY="133dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/emotions"
+        android:layout_width="wrap_content"
+        android:layout_height="33dp"
+        android:gravity="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

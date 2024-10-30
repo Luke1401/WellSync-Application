@@ -1,0 +1,15 @@
+COMP 3350 A02, Winter 2024 \
+**Group 16: `char++`**
+
+# WellSync
+
+WellSync is a health and wellness tracker that allows patients and their healthcare providers to plan treatments and monitor progress together.
+
+## What is WellSync?
+WellSync is a collaborative health and wellness journal where patients can record updates on their physical and mental wellness for their care providers to review, and receive feedback in return. With WellSync, patients will be able to record their mood, sleep, symptoms, medication and substance use, and other relevant health information on a daily basis. Selected information from patients’ health logs will be shared with their care providers, while keeping sensitive notes private to patients. Health care providers therefore have access to the history of their patients’ observations over time. They can use this information to curate their patients’ wellness goals, specify the symptoms they should be watching for, and communicate advice. Patients will then see their WellSync experience adapt as their practitioner follows along and responds to their health updates.
+
+## Why is this solution valuable?
+WellSync encourages a collaborative approach to health care delivery by keeping both patients and practitioners engaged at all stages of a patient’s treatment and recovery journey. Communicating through a wellness journal benefits both sides of the health care relationship by eliminating the need for an in-person appointment to share simple condition updates. Also, care providers can consult their patients’ history of daily health observations to make more informed decisions when planning treatments and giving advice. Having a consistent and daily record of patients’ conditions stored in WellSync is a notable improvement compared to relying on verbal reports, which are only shared at each appointment. Further, patients will find value in referring to their past reports to better understand their own condition and how it has evolved over time.
+
+## What success means for us?
+WellSync improves on traditional health care delivery models by providing a means of professional, private communication between patients and health care providers outside of the physical clinical environment. After adopting WellSync in their clinics, practitioners and their support staff should be spending less time on searching through charts to retrieve patient health information, and on updating charts with new developments. Patients will also be saving time by using WellSync to communicate with their care providers, rather than attending frequent medical appointments. Any patient whose care provider is following their wellness journey with WellSync should report increased satisfaction with the health care they receive, and increased awareness of the important factors influencing their well-being. These two metrics can easily be assessed by user surveys administered by clinics before and after introducing WellSync in their practice. Overall, using WellSync to record and communicate patient well-being will make the health care experience easier, more accessible, and more informative for both practitioners and patients.

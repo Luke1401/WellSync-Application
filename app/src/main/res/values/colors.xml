@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#0D0E0E</color>
+    <color name="colorAccent">#3BB66D</color>
+    <color name="top_bg">#EEEBEB</color>
+    <color name="mood_stat">#F56BD2</color>
+    <color name="mood_end">#A20BBD</color>
+    <color name="symptom_stat">#F0A12C</color>
+    <color name="symptom_end">#F06406</color>
+    <color name="che_stat">#E98F0B</color>
+    <color name="che_end">#F8CA40</color>
+    <color name="bio_stat">#EBF39B73</color>
+    <color name="bio_end">#F38524</color>
+    <color name="medication_stat">#C11CDD</color>
+    <color name="medication_end">#526AEE</color>
+    <color name="substanceUse_stat">#3EC2FA</color>
+    <color name="substanceUse_end">#526AEE</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="grey">#A6A6A6</color>
+
+</resources>
