@@ -1,0 +1,236 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Postmortem - WellSync</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="home.html">Home</a></li><li class="chapter-item expanded "><a href="our-vision.html"><strong aria-hidden="true">1.</strong> Our vision</a></li><li class="chapter-item expanded "><a href="our-users.html"><strong aria-hidden="true">2.</strong> Our users</a></li><li class="chapter-item expanded "><a href="our-features.html"><strong aria-hidden="true">3.</strong> Our features</a></li><li class="chapter-item expanded "><a href="our-team.html"><strong aria-hidden="true">4.</strong> Our team</a></li><li class="chapter-item expanded "><a href="video.html"><strong aria-hidden="true">5.</strong> WellSync in action</a></li><li class="chapter-item expanded "><a href="postmortem.html" class="active"><strong aria-hidden="true">6.</strong> Postmortem</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">WellSync</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="postmortem"><a class="header" href="#postmortem">Postmortem</a></h1>
+<p>This postmortem serves to recap the developmental process of the WellSync app, a collaborative health and wellness journal where patients can record updates on their physical and mental wellness for their care providers to review, and receive feedback in return. It explores some positive and negative points on some issues that arose during the entire process of development.</p>
+<h2 id="what-issues-arose"><a class="header" href="#what-issues-arose">What issues arose?</a></h2>
+<h2 id="iteration-1"><a class="header" href="#iteration-1">Iteration 1</a></h2>
+<p>An issue that arose during the first iteration of the development process was the last-minute production of the actual code. As the deadline seemed to have been forgotten by most members as well as the team still figuring out how to gel with each other, time seemed to have slipped by as testing happened the night before the deadline. This was not ideal as it caused stress to build up early on in the process. Although this experience wasn't the best start for the team, it did allow for team chemistry to build as well as allowing the team to get a good gist of what time is needed for the entire developmental process. Another area that suffered due to last-minute coding was documentation, as the time tracking for some dev tasks and user stories were forgotten and documented at the very last minute as well. Although this was not a big problem towards the end, it may have caused some inaccuracy in our project velocity calculations (although we corrected our mistakes retrospectively when planning for Iteration 2, wherever possible).</p>
+<p>One final issue that should be mentioned is the branch naming convention. Due to conflicting difference in some branch naming conventions, the documentation for the project was hard to keep up with. At the end, our team decided to stick with the initials of the coder as well as the dev task number, for example, <code>rv/dev96</code>. That way, anyone in the team could tell what a branch was created for. Iteration 1 ended up focusing on three main features: Signing in as a patient, registering as a patient, and logging daily mood and sleep hours.</p>
+<h2 id="iteration-2"><a class="header" href="#iteration-2">Iteration 2</a></h2>
+<p>With Iteration 1 being the catapult that helped Iteration 2 get off to a good start, the team was able to properly distribute work as well as get work done for intermediate deadlines set by the team. By applying the different things learned in class such as techniques to reduce coupling and increase cohesion, addressing technical debt, and incorporating patterns such as the recycle view and the adapter pattern into our project; we were able to avoid code smells early on in our developmental process. As a team, we were able to find and fix certain SOLID violations found in Iteration 1. With that being said, an issue that still arose during developmental process for Iteration 2 was that a lot of SRP (Solid-Responsibility Principle) and DIP (Dependency Inversion Principle) violations were still violated by our code by the end of Iteration 2. Although this was not the best feedback to receive as it indicated that we were not properly avoiding SOLID violations, it still is good feedback to receive as our eyes were opened for avoiding SOLID violations in Iteration 3, the final release.</p>
+<p>Due to last minute implementations of the role property (to distinguish doctor and patient credentials), there were conflicting ideas of the functionality of the sign-in and log-in. One idea questioned whether a user should have to select their role when logging in, while others thought this information should be stored inside the database. Still, the team was able to find a solution and submit on time, although technical debt would arise due to this small issue. Iteration 2 focused on incorporating the substance-use tracker, medication tracker and the symptom tracker. In this iteration, our team also improved the patient homepage, and added the Doctor role (allowing users to log in / register as doctors and view their patients' information). To adhere to SOLID principles, our team decided to modify our architecture by having one overarching "daily log" object, instead of four distinct objects for the symptom, medication, substance-use and mood logs.</p>
+<h2 id="iteration-3"><a class="header" href="#iteration-3">Iteration 3</a></h2>
+<p>Shortly after Iteration 2, the team had a meeting on what the focus for Iteration 3 was going to be. One unanimous idea was that the code from Iteration 2 was in dire need of cleaning up. While the implementation for Iteration 2 was rushed, there was still code that had smells to it. An area that was needing of change was the hardcoding of some variables such as age, sex (a controversial topic for this project), etc. Another area for improvement was more extensive testing, since we did not check our test coverage again after adding some code shortly before the deadline. This caused our Iteration 2 logic layer to fall under 80% coverage, and some new persistence methods weren't reached by integration tests either. Another issue that was addressed was the documentation and how the time estimates were too off from the actual time spent between iterations. By reviewing each issue in GitLab, our team was able to fix this and provide decently accurate project velocities for Iterations 1 and 2. (We realized we were double-counting by adding time estimates to both features/user stories, and the dev tasks they contained.)</p>
+<p>Another idea that the team decided on for Iteration 3 was the implementation of data graphs, and to finish the full functionality of the doctor's side of the app. While there was initial struggle with implementation of the data charts, the team figured out how to implement the data charts with proper questioning and research. The overall retrospective for the end of Iteration 2 was smooth as there seemed to be no signs of disagreement on our project direction within the team. One feature that the team decided to drop was the functionality for a patient to check their full log history. We decided as a team that the doctor would be the one to pull up the entire history of logs for a patient. This decision was based on what the team wanted WellSync to be and that was for the healthcare provider to take a greater role in monitoring health outcomes.</p>
+<h2 id="summary"><a class="header" href="#summary">Summary</a></h2>
+<p>While the identity of WellSync was consistent throughout the developmental process, many features/stories simply did not end up fitting the vision of what we had for WellSync. Some functionalities included patients being able to access their logs, patients having a private journal, patients setting goals as well as patients receiving notifications. As these features would have been helpful, WellSync was designed to be more for enabling quick and fast communication between the healthcare provider and their patients. This is definitely not something we want to throw away for future purposes, which is why we've decided to put those features on hold for future iterations.</p>
+<p>One lesson that was learned about the large project development was the aspect of effectively communicating. Often times, an issue would arise primarily because of not communicating well or enough. Whether that be saying what time is good to meet or what work needs to be delegated, communication is still considered a large aspect to group projects and team settings. Another lesson for the team was that sometimes the best solution in theory may not be the best solution for the team. Some solutions may be too resource heavy or not feasible for the team. When that situation occurs, the team needs to step up and adjust accordingly. In Iteration 0, a team member spoke up and mentioned how they were not comfortable with being a lead coder, so the team adjusted and was able to complete tasks more effectively by re-assigning work accordingly. Overall, this project has been a wonderful experience for the team as it provides the community with an app that can be used as well as providing team members with experience on software engineering team projects.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="video.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="video.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
